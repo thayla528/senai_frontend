@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h1>Operações Aritméticas</h1>
+
+<div class="calculos">
+
+    <div class="card_operacao">
+        <h2>Triângulo equilátero <br>
+        Área
+        </h2>
+        <form class="form-somar" action="{{ url_for('area') }}" method="post">
+            <label>
+                <input placeholder="Digite o número de lados" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if vez is defined %}
+                    {{ n1 }} * {{ n2 }} = {{ vez }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Área</button>
+        </form>
+
+        <h2>Perímetro</h2>
+        <form class="form-somar" action="{{ url_for('perimetro_triangulo') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">+</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2" form-control>
+            </label>
+
+            <p class="operador">+</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n3" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if pt is defined %}
+                    {{ n1 }} + {{ n2 }} + {{ n3 }} = {{ pt }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Perímetro</button>
+        </form>
+    </div>
+
+    <div class="card_operacao">
+        <h2>Quadrado <br>
+        Área
+        </h2>
+        <form class="form-somar" action="{{ url_for('area') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if vez is defined %}
+                    {{ n1 }} * {{ n2 }} = {{ vez }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Área</button>
+        </form>
+
+        <h2>Perímetro</h2>
+        <form class="form-somar" action="{{ url_for('perimetro_triangulo') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">+</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2" form-control>
+            </label>
+
+            <p class="operador">+</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n3" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if pt is defined %}
+                    {{ n1 }} + {{ n2 }} + {{ n3 }} = {{ pt }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Perímetro</button>
+        </form>
+    </div>
+
+    <div class="card_operacao">
+        <h2>Círculo<br>
+        Área
+        </h2>
+        <form class="form-somar" action="{{ url_for('area_circulo') }}" method="post">
+            <label>
+                <input placeholder="Digite o número d raio" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite o número de pi" name="form-n2" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if arc is defined %}
+                    {{ n1 }} * {{ n2 }} = {{ arc }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Área</button>
+        </form>
+
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+{% endblock %}

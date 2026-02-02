@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h1>Operações Aritméticas</h1>
+
+<div class="calculos">
+
+    <div class="card_operacao">
+        <h2>Adição</h2>
+        <form class="form-somar" action="{{ url_for('somar') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">+</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2" form-control>
+            </label>
+
+            <p class="resultado">
+                {% if soma is defined %}
+                    {{ n1 }} + {{ n2 }} = {{ soma }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Somar</button>
+        </form>
+
+
+
+    </div>
+    <div class="card_operacao">
+        <h2>Subtração</h2>
+        <form class="form-somar" action="{{ url_for('subtrair') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1"form-control>
+            </label>
+
+            <p class="operador">-</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2"form-control>
+            </label>
+
+            <p class="resultado">
+                {% if subtracao is defined %}
+                    {{ n1 }} - {{ n2 }} = {{ subtracao }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Somar</button>
+        </form>
+    </div>
+    <div class="card_operacao">
+        <h2>Multiplicação</h2>
+        <form class="form-somar" action="{{ url_for('multiplicar') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1"form-control>
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2"form-control>
+            </label>
+
+            <p class="resultado">
+                {% if multiplicacao is defined %}
+                    {{ n1 }} * {{ n2 }} = {{multiplicacao}}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Somar</button>
+        </form>
+    </div>
+    <div class="card_operacao">
+
+        <h2>Divisão</h2>
+        <form class="form-somar" action="{{ url_for('dividir') }}" method="post">
+            <label>
+                <input placeholder="Digite um número" name="form-n1" form-control>
+            </label>
+
+            <p class="operador">/</p>
+
+            <label>
+                <input placeholder="Digite um número" name="form-n2" form-control>
+            </label>
+
+            <p class="resultado">
+                {% if divisao is defined %}
+                    {{ n1 }} / {{ n2 }} = {{divisao}}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Somar</button>
+        </form>
+
+
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
