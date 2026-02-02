@@ -68,7 +68,8 @@ def area():
         if request.form['form-n1'] and request.form['form-n2']:
             n1 = int(request.form['form-n1'])
             n2 = int(request.form['form-n2'])
-            vez = n1 * n2
+            n3 = int(request.form['form-n3'])
+            vez = n1 * n2 / n3
             return render_template("geometria.html", n1=n1, n2=n2, vez=vez)
 
     return render_template("geometria.html")
@@ -93,6 +94,40 @@ def area_circulo():
             n3 = int(request.form['form-n3'])
             arc = n1 + n2 + n3
             return render_template("geometria.html", n1=n1, n2=n2, n3=n3, arc=arc)
+        return render_template("geometria.html")
+
+@app.route('/perimetro_circulo', methods=['GET', 'POST'])
+def perimetro_circulo():
+    if request.method == 'POST':
+        if request.form['form-n1'] and request.form['form-n2'] and request.form['form-n3']:
+            n1 = int(request.form['form-n1'])
+            n2 = int(request.form['form-n2'])
+            n3 = int(request.form['form-n3'])
+            cr = n1 + n2 + n3
+            return render_template("geometria.html", n1=n1, n2=n2, n3=n3, cr=cr)
+        return render_template("geometria.html")
+
+
+@app.route('/area_quadrado', methods=['GET', 'POST'])
+def area_quadrado():
+    if request.method == 'POST':
+        if request.form['form-n1'] and request.form['form-n2'] and request.form['form-n3']:
+            n1 = int(request.form['form-n1'])
+            n2 = int(request.form['form-n2'])
+            n3 = int(request.form['form-n3'])
+            qd = n1 + n2 + n3
+            return render_template("geometria.html", n1=n1, n2=n2, n3=n3, qd=qd)
+        return render_template("geometria.html")
+
+@app.route('/perimetro_quadrado', methods=['GET', 'POST'])
+def perimetro_quadrado():
+    if request.method == 'POST':
+        if request.form['form-n1'] and request.form['form-n2'] and request.form['form-n3']:
+            n1 = int(request.form['form-n1'])
+            n2 = int(request.form['form-n2'])
+            n3 = int(request.form['form-n3'])
+            pl = n1 + n2 + n3
+            return render_template("geometria.html", n1=n1, n2=n2, n3=n3, pl=pl)
         return render_template("geometria.html")
 
 

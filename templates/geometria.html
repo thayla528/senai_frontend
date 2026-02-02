@@ -6,13 +6,14 @@
 
 <div class="calculos">
 
+
     <div class="card_operacao">
-        <h2>Triângulo equilátero <br>
+        <h2>Triângulo <br>
         Área
         </h2>
         <form class="form-somar" action="{{ url_for('area') }}" method="post">
             <label>
-                <input placeholder="Digite o número de lados" name="form-n1" form-control >
+                <input placeholder="Digite um número" name="form-n1" form-control >
             </label>
 
             <p class="operador">*</p>
@@ -21,30 +22,7 @@
                 <input placeholder="Digite um número" name="form-n2" form-control>
             </label>
 
-
-            <p class="resultado">
-                {% if vez is defined %}
-                    {{ n1 }} * {{ n2 }} = {{ vez }}
-                {% else %}
-                {% endif %}
-            </p>
-
-            <button type="submit" class="btn btn-info">Área</button>
-        </form>
-
-        <h2>Perímetro</h2>
-        <form class="form-somar" action="{{ url_for('perimetro_triangulo') }}" method="post">
-            <label>
-                <input placeholder="Digite um número" name="form-n1" form-control >
-            </label>
-
-            <p class="operador">+</p>
-
-            <label>
-                <input placeholder="Digite um número" name="form-n2" form-control>
-            </label>
-
-            <p class="operador">+</p>
+            <p class="operador">/</p>
 
             <label>
                 <input placeholder="Digite um número" name="form-n3" form-control>
@@ -52,35 +30,8 @@
 
 
             <p class="resultado">
-                {% if pt is defined %}
-                    {{ n1 }} + {{ n2 }} + {{ n3 }} = {{ pt }}
-                {% else %}
-                {% endif %}
-            </p>
-
-            <button type="submit" class="btn btn-info">Perímetro</button>
-        </form>
-    </div>
-
-    <div class="card_operacao">
-        <h2>Quadrado <br>
-        Área
-        </h2>
-        <form class="form-somar" action="{{ url_for('area') }}" method="post">
-            <label>
-                <input placeholder="Digite um número" name="form-n1" form-control >
-            </label>
-
-            <p class="operador">*</p>
-
-            <label>
-                <input placeholder="Digite um número" name="form-n2" form-control>
-            </label>
-
-
-            <p class="resultado">
                 {% if vez is defined %}
-                    {{ n1 }} * {{ n2 }} = {{ vez }}
+                    {{ n1 }} + {{ n2 }} / {{ n3 }} = {{ vez }}
                 {% else %}
                 {% endif %}
             </p>
@@ -88,7 +39,8 @@
             <button type="submit" class="btn btn-info">Área</button>
         </form>
 
-        <h2>Perímetro</h2>
+        <h2>Triângulo<br>
+        Perímetro</h2>
         <form class="form-somar" action="{{ url_for('perimetro_triangulo') }}" method="post">
             <label>
                 <input placeholder="Digite um número" name="form-n1" form-control >
@@ -124,7 +76,7 @@
         </h2>
         <form class="form-somar" action="{{ url_for('area_circulo') }}" method="post">
             <label>
-                <input placeholder="Digite o número d raio" name="form-n1" form-control >
+                <input placeholder="Digite o número do raio" name="form-n1" form-control >
             </label>
 
             <p class="operador">*</p>
@@ -143,6 +95,89 @@
 
             <button type="submit" class="btn btn-info">Área</button>
         </form>
+
+        <h2>Círculo<br>
+        Perímetro
+        </h2>
+        <form class="form-somar" action="{{ url_for('perimetro_circulo') }}" method="post">
+            <label>
+                <input placeholder="Digite o número do raio" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite o número do diametro" name="form-n2" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if cr is defined %}
+                    {{ n1 }} * {{ n2 }} = {{ cr }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Perimetro</button>
+        </form>
+    </div>
+
+
+        <div class="card_operacao">
+            <h2>Quadrado<br>
+        Área
+        </h2>
+        <form class="form-somar" action="{{ url_for('area_quadrado') }}" method="post">
+            <label>
+                <input placeholder="Digite a medida do lado" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite a medida do lado" name="form-n2" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if qd is defined %}
+                    {{ n1 }} * {{ n2 }} = {{ qd }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Área</button>
+        </form>
+
+        <h2>Quadrado<br>
+        Perímetro
+        </h2>
+        <form class="form-somar" action="{{ url_for('perimetro_quadrado') }}" method="post">
+            <label>
+                <input placeholder="Digite a medida do lado" name="form-n1" form-control >
+            </label>
+
+            <p class="operador">*</p>
+
+            <label>
+                <input placeholder="Digite o número de lados" name="form-n2" form-control>
+            </label>
+
+
+            <p class="resultado">
+                {% if pl is defined %}
+                    {{ n1 }} * {{ n2 }} = {{ pl }}
+                {% else %}
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn btn-info">Área</button>
+        </form>
+        </div>
+
+
+
+
 
 
 
