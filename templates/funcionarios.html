@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>Funcionários</h1>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Novo funcionário
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-somar" action="{{ url_for('area') }}" method="post">
+
+            <label>
+                Nome:
+                <input placeholder="Digite o nome" name="form-nome" class="form-control w-100">
+            </label>
+            <label>
+                Data_nascimento:
+                <input type="date" name="form-data_nascimento" class="form-control w-100">
+            </label>
+            <label>
+                CPF:
+                <input placeholder="000.000.000-00" name="cpf" class="form-control">
+            </label>
+            <label>
+                Email:
+                <input placeholder="Digite o email"  name="form-name" class="form-control w-100">
+            </label>
+            <label>
+                Senha:
+                <input placeholder="Digite a senha" type="password" name="form-name" class="form-control w-100">
+            </label>
+            <label>
+                Cargo:
+                <input placeholder="Digite o data_nascimento" name="form-name" class="form-control w-100">
+            </label>
+            <label>
+                Sálario:
+                <input placeholder="Digite o sálario" name="form-name" class="form-control w-100">
+            </label>
+
+
+
+            <button type="submit" class="btn btn-info" style="margin: 20px;">Cadastrar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Data_nascimento</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Email</th>
+        <th scope="col">Senha</th>
+        <th scope="col">Cargo</th>
+        <th scope="col">Salario</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Thayla</td>
+        <td>03/10/08</td>
+        <td>158621545</td>
+        <td>thayla@gmail.com</td>
+        <td>1234</td>
+        <th>Médica</th>
+        <td>R$1500,00</td>
+        <td><a href=""><i class="bi bi-pencil"></i></a><a href=""><i class="bi bi-trash text-danger"></i></a></td>
+    </tr>
+    </tbody>
+
+
+</table>
+{% endblock %}

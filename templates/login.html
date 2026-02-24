@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-sm" style="width: 350px; height: auto; border-radius: 15px;">
+        <h2 class="text-center mb-4">Login</h2>
+
+        <!-- ADICIONADO: Tag form com a rota de login -->
+        <form action="{{ url_for('login') }}" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <!-- ADICIONADO: class form-control e o name correto -->
+                <input type="email" name="form-email" class="form-control" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Senha:</label>
+                <!-- ADICIONADO: class form-control e o name correto -->
+                <input type="password" name="form-senha" class="form-control" placeholder="******" required>
+            </div>
+
+            <button type="submit" class="btn btn-info w-100 mt-2 text-white">Entrar</button>
+
+            <div class="text-center mt-3">
+                <small>Não tem conta? <a href="{{ url_for('cadastro_usuario') }}">Cadastre-se</a></small>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
