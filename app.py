@@ -20,6 +20,60 @@ login_manager.login_view = 'login'
 
 #se na tiver logado joga para a tela de login
 
+@app.route('/excluir/<int:id>')
+@login_required
+def excluir_funcionario(id):
+    try:
+        # Busca usando a estrutura correta do seu db_session
+        funcionario = db_session.get(Funcionario, id)
+        if funcionario:
+            db_session.delete(funcionario)
+            db_session.commit()
+            flash("Funcionário removido com sucesso!", "success")
+        else:
+            flash("Funcionário não encontrado.", "danger")
+    except Exception as e:
+        db_session.rollback()
+        flash(f"Erro ao excluir: {str(e)}", "danger")
+
+    return redirect(url_for('funcionarios'))
+
+
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar_funcionario(id):
+    funcionario = db_session.get(Funcionario, id)
+
+    if not funcionario:
+        flash("Funcionário não encontrado!", "danger")
+        return redirect(url_for('funcionarios'))
+
+    if request.method == 'POST':
+        try:
+            funcionario.nome = request.form.get('nome')
+            funcionario.data_nascimento = request.form.get('data_nascimento')
+            funcionario.cpf = request.form.get('cpf')
+            funcionario.email = request.form.get('email')
+            funcionario.cargo = request.form.get('cargo')
+            funcionario.salario = request.form.get('salario')
+
+            # CORREÇÃO AQUI: Aplica Hash se houver nova senha
+            nova_senha = request.form.get('senha')
+            if nova_senha and nova_senha.strip():
+                funcionario.set_password(nova_senha) # Agora gera o HASH igual no cadastro
+
+            db_session.commit()
+            flash("Funcionário atualizado com sucesso!", "success")
+            return redirect(url_for('funcionarios'))
+        except Exception as e:
+            db_session.rollback()
+            print(f"Erro ao editar: {e}")
+            flash("Erro ao salvar alterações.", "danger")
+
+    return render_template('editar.html', funcionario=funcionario)
+
+
+# --- 3. CADASTRO DE FUNCIONÁRIO (Com Hash) ---
 @app.route('/cadastrar_funcionario', methods=['POST'])
 @login_required
 def cadastrar_funcionario():
@@ -31,13 +85,18 @@ def cadastrar_funcionario():
     cargo = request.form.get('cargo')
     salario = request.form.get('salario')
 
-    novo_f = Funcionario(nome=nome, data_nascimento=data_nasc, cpf=cpf, email=email, senha=senha, cargo=cargo,
-                         salario=salario)
+    # Cria o objeto (sem passar a senha direto no construtor)
+    novo_f = Funcionario(nome=nome, data_nascimento=data_nasc, cpf=cpf,
+                         email=email, cargo=cargo, salario=salario)
+
+    # Aplica o Hash usando o método do seu database.py
+    if senha:
+        novo_f.set_password(senha)
 
     try:
         db_session.add(novo_f)
         db_session.commit()
-        flash("Funcionário cadastrado!", "success")
+        flash("Funcionário cadastrado com sucesso!", "success")
     except Exception as e:
         db_session.rollback()
         flash("Erro ao salvar no banco", "danger")
@@ -85,6 +144,7 @@ def geometria():
 @login_required
 def funcionarios():
     # Busca todos os registros da tabela 'funcionarios'
+
     query = select(Funcionario)
     lista = db_session.execute(query).scalars().all()
 

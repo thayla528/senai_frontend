@@ -47,8 +47,45 @@
     }
 
     /* Cor do nome do usuário e do botão sair */
-    .user-info-text { color: white; margin: 0 10px; font-size: 0.9rem; }
-    .btn-sair-neon { color: #ff4d4d !important; text-shadow: 0 0 5px #ff4d4d !important; }
+    .user-info-text { color: #00d4ff !important; }
+    .btn btn-danger { text-shadow: 0 0 5px #00d4ff;
+
+    }
+
+    /* ESTILO DO CARD DE SAIR (MODAL) */
+    .modal-content {
+        background-color: #1a1d24 !important;
+        border: 2px solid #00d4ff !important;
+        box-shadow: 0 0 20px #00d4ff;
+        color: white;
+    }
+    .modal-header {
+        border-bottom: 1px solid #00d4ff33 !important;
+    }
+    .modal-footer {
+        border-top: none !important;
+
+    }
+    .modal-title {
+        color: #00d4ff;
+        text-shadow: 0 0 5px #00d4ff;
+    }
+    .btn-close {
+        filter: invert(1) brightness(200%); /* Deixa o X branco */
+    }
+    .btn-neon {
+    background-color: transparent !important;
+    border: 2px solid #00d4ff !important;
+    color: #00d4ff !important;
+    box-shadow: 0 0 10px #00d4ff;
+    transition: 0.3s;
+}
+
+    .btn-neon:hover {
+        background-color: #00d4ff !important;
+        box-shadow: 0 0 20px #00d4ff;
+    }
+
 </style>
 
 <!-- Configuração de menu-->
@@ -65,13 +102,28 @@
                 {{current_user.nome}}
               </a>
             </li>
-
-            <
-            <li><a href="{{ url_for('logout') }}" class="btn-sair-neon">Sair</a></li>
         {% else %}
             <li><a href="{{ url_for('login') }}">Login</a></li>
         {% endif %}
     </ul>
+</div>
+
+<div class="modal fade" id="modalLogout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> <!-- Centralizado para combinar com o estilo -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Deseja saír?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Você será desconectado do sistema.
+            </div>
+            <div class="modal-footer">
+                <a href="{{url_for('logout')}}" class="modal-title fs-5">Saír</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 

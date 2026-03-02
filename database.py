@@ -31,7 +31,7 @@ class Funcionario(base, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.senha, password)
 
-    def save(self): # Removi a necessidade de passar db_session se ele já for global
+    def save(self):  # Removi a necessidade de passar db_session se ele já for global
         try:
             db_session.add(self)
             db_session.commit()

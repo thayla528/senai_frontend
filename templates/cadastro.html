@@ -40,21 +40,21 @@
 
                 <div class="mb-3">
                     <label class="form-label w-100">
-                        Nome:
+                        Nome
                         <input type="text" name="nome" class="form-control bg-dark border-info input-neon" required placeholder="Seu nome completo">
                     </label>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label w-100">
-                        Email:
+                        Email
                         <input type="email" name="email" class="form-control bg-dark border-info input-neon" required placeholder="exemplo@email.com">
                     </label>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label w-100">
-                        Senha:
+                        Senha
                         <input type="password" name="senha" class="form-control bg-dark border-info input-neon" required placeholder="Crie uma senha">
                     </label>
                 </div>
@@ -63,10 +63,8 @@
                     Cadastrar
                 </button>
 
-                <div class="text-center mt-3">
-                    <a href="{{ url_for('login') }}" class="text-decoration-none small text-info" style="text-shadow: 0 0 5px #00d4ff;">
-                        Já tem uma conta? Faça login
-                    </a>
+               <div class="text-center mt-3">
+                    <small>Já tem uma conta? <a href="{{ url_for('login') }}" class="text-info" style="text-shadow: 0 0 5px #00d4ff;">Faça login</a></small>
                 </div>
             </div>
         </div>
