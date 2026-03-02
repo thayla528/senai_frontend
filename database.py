@@ -43,7 +43,7 @@ class Usuario(base, UserMixin):
     __tablename__ = 'usuario'
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(100), nullable=False)  # Adicione (100)
-    senha = Column(String(255), nullable=False)
+    senha = Column(String(255), nullable=False) # Hash Werkzeug
     email = Column(String(100), nullable=False, unique=True) # Adicione (100)
 
 

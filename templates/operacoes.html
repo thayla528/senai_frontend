@@ -7,21 +7,7 @@
 <!--  verifica se possui mensagens enviadas pelo app -->
 <!-- passo 3 definir with_categories=true) %} caso queira ter acesso as categorias -->
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-<!-- pai DAS MENSAGENS -->
-<div class="flash-error px-3">
-    <!-- Passo 4:Percorrer a lista de mensagens -->
-    {% for category, message in messages %}
-    <!--   Passo 5:criar um card filho                 -->
-    <div class="alert {{ category }} alert-dismissible fade show px-5" role="alert">
-        <strong>{{ message }}</strong>.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
+
 
 <div class="calculos">
 
@@ -103,8 +89,7 @@
                     <div class="accordion-body">
                         <h4>Subtração</h4>
                         <p> A subtração (a famosa "conta de menos") é o processo de retirar uma quantidade<br>
-                            de outra para descobrir a diferença ou o que restou.
- </p>
+                            de outra para descobrir a diferença ou o que restou</p>
 
                     </div>
                 </div>
@@ -194,6 +179,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 

@@ -10,15 +10,21 @@
         <form action="{{ url_for('login') }}" method="POST">
 
             <div class="mb-3">
-                <label class="form-label">Email:</label>
+                <label class="form-label">
+                    Email:
                 <!-- ADICIONADO: class form-control e o name correto -->
-                <input type="email" name="form-email" class="form-control" placeholder="seu@email.com" required>
+                    <input type="email" name="form-email" class="form-control" placeholder="seu@email.com" required>
+                </label>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Senha:</label>
+                <label class="form-label">
+                    Senha:
                 <!-- ADICIONADO: class form-control e o name correto -->
-                <input type="password" name="form-senha" class="form-control" placeholder="******" required>
+
+                    <input type="password" name="form-senha" class="form-control" placeholder="******" required>
+
+                </label>
             </div>
 
             <button type="submit" class="btn btn-info w-100 mt-2 text-white">Entrar</button>

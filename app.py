@@ -15,9 +15,34 @@ app.config['SECRET_KEY'] = '2'
 # Adicione estas linhas:
 login_manager = LoginManager()
 login_manager.init_app(app)
+# em qual lugar vou autenticar
 login_manager.login_view = 'login'
 
 #se na tiver logado joga para a tela de login
+
+@app.route('/cadastrar_funcionario', methods=['POST'])
+@login_required
+def cadastrar_funcionario():
+    nome = request.form.get('nome')
+    data_nasc = request.form.get('data_nascimento')
+    cpf = request.form.get('cpf')
+    email = request.form.get('email')
+    senha = request.form.get('senha')
+    cargo = request.form.get('cargo')
+    salario = request.form.get('salario')
+
+    novo_f = Funcionario(nome=nome, data_nascimento=data_nasc, cpf=cpf, email=email, senha=senha, cargo=cargo,
+                         salario=salario)
+
+    try:
+        db_session.add(novo_f)
+        db_session.commit()
+        flash("Funcionário cadastrado!", "success")
+    except Exception as e:
+        db_session.rollback()
+        flash("Erro ao salvar no banco", "danger")
+
+    return redirect(url_for('funcionarios'))
 
 
 @app.route('/logout')
@@ -72,6 +97,9 @@ def login():
     if request.method == 'POST':
         email = request.form.get('form-email')
         senha = request.form.get('form-senha')
+        if not email or not senha:
+            flash('Por favor preencher os campos!', 'danger')
+            return render_template('login.html')
 
         if email and senha:
             verificar_email = select(Usuario).where(Usuario.email == email)
@@ -90,7 +118,7 @@ def login():
                     return render_template('login.html')
 
             else:
-                flash(f'Email não encontrado!', )
+                flash('Email não encontrado!', 'danger')
                 # chama o html
                 return render_template('login.html')
     else:

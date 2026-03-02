@@ -9,15 +9,47 @@
     <link rel="stylesheet" href="/static/css/style.css"/>
 </head>
 <body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<!-- pai DAS MENSAGENS -->
+<div class="flash-error px-3">
+    <!-- Passo 4:Percorrer a lista de mensagens -->
+    {% for category, message in messages %}
+    <!--   Passo 5:criar um card filho                 -->
+    <div class="alert {{ category }} alert-dismissible fade show px-5" role="alert">
+        <strong>{{ message }}</strong>.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
 <div class="menu">
     <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('calculos') }}">Cálculos</a></li>
-        <li><a href="{{ url_for('funcionarios') }}">Funcionários</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
+
+
+        <!-- Só mostra Funcionários/sair se estiver logado -->
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('funcionarios') }}">Funcionários</a></li>
+            <li><a href="{{ url_for('calculos') }}">Cálculos</a></li>
+            <li>{{current_user.nome}} </li>
+            <li><a href="{{ url_for('logout') }}" >Sair</a>
+
+
+        {% else %}
+            <!-- Se não estiver logado, mostra o Login -->
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+
+
 
     </ul>
 </div>
+
+
+
+
 
 <div class="conteudo">
     {% block conteudo %}
@@ -26,5 +58,6 @@
 </div>
 <!-- link do java script no fim do body-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
 </body>
 </html>
