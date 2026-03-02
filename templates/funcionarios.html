@@ -1,95 +1,157 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<h1>Funcionários</h1>
+<style>
+    /* Estilos para Inputs e Placeholders Neon */
+    .input-neon {
+        background-color: #0b0e14 !important;
+        color: #00d4ff !important;
+        border: 1px solid #00d4ff !important;
+        box-shadow: inset 0 0 5px rgba(0, 212, 255, 0.2);
+        border-radius: 10px;
+    }
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Novo funcionário
-</button>
+    .input-neon::placeholder {
+        color: rgba(0, 212, 255, 0.5);
+        text-shadow: 0 0 5px #00d4ff;
+    }
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form class="form-somar" action="{{ url_for('cadastrar_funcionario') }}" method="post">
-    <label>
-        Nome:
-        <input placeholder="Digite o nome" name="nome" class="form-control w-100">
-    </label>
-    <label>
-        Data Nascimento:
-        <input type="date" name="data_nascimento" class="form-control w-100">
-    </label>
-    <label>
-        CPF:
-        <input placeholder="000.000.000-00" name="cpf" class="form-control">
-    </label>
-    <label>
-        Email:
-        <input placeholder="Digite o email" type="email" name="email" class="form-control w-100">
-    </label>
-    <label>
-        Senha:
-        <input placeholder="Digite a senha" type="password" name="senha" class="form-control w-100">
-    </label>
-    <label>
-        Cargo:
-        <input placeholder="Digite o cargo" name="cargo" class="form-control w-100">
-    </label>
-    <label>
-        Salário:
-        <input placeholder="Digite o salário" type="number" step="0.01" name="salario" class="form-control w-100">
-    </label>
+    /* CALENDÁRIO EM AZUL NEON */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(65%) sepia(97%) saturate(1872%) hue-rotate(159deg) brightness(105%) contrast(105%);
+        transition: transform 0.2s;
+    }
 
-    <button type="submit" class="btn btn-info" style="margin: 20px;">Cadastrar</button>
-</form>
+    /* Tabela com ESPAÇAMENTO (Cards Flutuantes)  */
+    .table-neon {
+        color: white !important;
+        border-collapse: separate;
+        border-spacing: 0 15px;    /* Mantém o espaçamento que você gosta */
+        width: 100%;
+    }
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+    .table-neon tbody tr {
+        background-color: #1a1d24;
+        transition: transform 0.2s, background-color 0.2s;
+        border: none !important; /* Garante que não tenha bordas */
+    }
+
+    /* Arredondamento das pontas de cada linha isolada */
+    .table-neon tr td:first-child { border-radius: 15px 0 0 15px; }
+    .table-neon tr td:last-child { border-radius: 0 15px 15px 0; }
+
+    .table-neon tbody tr:hover {
+        transform: scale(1.01);
+        background-color: #252a34;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .table-neon th, .table-neon td {
+        padding: 15px !important;
+        vertical-align: middle;
+        border: none !important;
+    }
+
+    .neon-text {
+        color: #00d4ff;
+        text-shadow: 0 0 10px #00d4ff;
+    }
+
+    .btn-round {
+        border-radius: 30px !important;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="neon-text mb-4">Gerenciamento de Funcionários</h1>
+
+    <!-- BOTÃO NOVO FUNCIONÁRIO COM TODAS AS FUNÇÕES -->
+    <button type="button" class="btn btn-info text-white fw-bold btn-round mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="box-shadow: 0 0 15px #00d4ff;">
+      <i class="bi bi-person-plus-fill"></i> Novo Funcionário
+    </button>
+
+    <!-- MODAL DE CADASTRO (DE VOLTA) -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #1a1d24; border: 2px solid #00d4ff; box-shadow: 0 0 30px #00d4ff; border-radius: 20px;">
+          <div class="modal-header border-0">
+            <h1 class="modal-title fs-5 neon-text">Cadastrar Funcionário</h1>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="{{ url_for('cadastrar_funcionario') }}" method="post">
+                <div class="mb-3">
+                    <label class="text-white small">Nome Completo:</label>
+                    <input placeholder="Digite o nome" name="nome" class="form-control input-neon" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="text-white small">Data Nascimento:</label>
+                        <input type="date" name="data_nascimento" class="form-control input-neon" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="text-white small">CPF:</label>
+                        <input placeholder="000.000.000-00" name="cpf" class="form-control input-neon" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="text-white small">E-mail Corporativo:</label>
+                    <input placeholder="exemplo@email.com" type="email" name="email" class="form-control input-neon" required>
+                </div>
+                <div class="mb-3">
+                    <label class="text-white small">Senha de Acesso:</label>
+                    <input placeholder="******" type="password" name="senha" class="form-control input-neon" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="text-white small">Cargo:</label>
+                        <input placeholder="Cargo" name="cargo" class="form-control input-neon" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="text-white small">Salário (R$):</label>
+                        <input placeholder="0.00" type="number" step="0.01" name="salario" class="form-control input-neon" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info w-100 mt-3 text-white fw-bold shadow btn-round" style="box-shadow: 0 0 10px #00d4ff;">Salvar no Banco</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
+    <!-- TABELA COM FUNCIONALIDADES COMPLETAS -->
+    <div class="table-responsive mt-2">
+        <table class="table table-neon">
+            <thead>
+                <tr class="text-info" style="text-shadow: 0 0 5px #00d4ff;">
+                    <th>ID</th>
+                    <th>NOME</th>
+                    <th>DATA NASC.</th>
+                    <th>EMAIL</th>
+                    <th>CARGO</th>
+                    <th>SALÁRIO</th>
+                    <th>AÇÕES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for funcionario in funcionarios %}
+                <tr>
+                    <td class="fw-bold neon-text">{{ funcionario.id }}</td>
+                    <td>{{ funcionario.nome }}</td>
+                    <td>{{ funcionario.data_nascimento }}</td>
+                    <td>{{ funcionario.email }}</td>
+                    <td><span class="badge bg-dark border border-info text-info btn-round" style="padding: 5px 12px;">{{ funcionario.cargo }}</span></td>
+                    <td class="text-success fw-bold">R$ {{ funcionario.salario }}</td>
+                    <td>
+                        <!-- Botões de Ação Arredondados -->
+                        <a href="#" class="btn btn-sm btn-outline-info me-1 btn-round"><i class="bi bi-pencil"></i></a>
+                        <a href="#" class="btn btn-sm btn-outline-danger btn-round"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Data_nascimento</th>
-        <th scope="col">CPF</th>
-        <th scope="col">Email</th>
-        <th scope="col">Cargo</th>
-        <th scope="col">Salario</th>
-        <th scope="col">Ações</th> <!-- Coluna para os ícones -->
-    </tr>
-    </thead>
-    <tbody>
-    {# O loop abaixo repete a sua linha para cada funcionário no banco #}
-    {% for funcionario in funcionarios %}
-    <tr>
-        <th scope="row">{{ funcionario.id }}</th>
-        <td>{{ funcionario.nome }}</td>
-        <td>{{ funcionario.data_nascimento }}</td>
-        <td>{{ funcionario.cpf }}</td>
-        <td>{{ funcionario.email }}</td>
-
-        <td>{{ funcionario.cargo }}</td>
-        <td>R${{ funcionario.salario }}</td>
-        <td>
-            <a href=""><i class="bi bi-pencil"></i></a>
-            <a href=""><i class="bi bi-trash text-danger"></i></a>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
 {% endblock %}

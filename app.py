@@ -124,7 +124,6 @@ def login():
     else:
         return render_template('login.html')
 
-
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro_usuario():
     if request.method == 'POST':

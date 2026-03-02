@@ -1,29 +1,79 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+<style>
+    /* Configurações Globais de Neon */
+    .neon-text { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
 
-<h1>Escolha uma opção de cálculo</h1>
+    /* Estilo dos Cards de Seleção */
+    .card_calculo {
+        background-color: #1a1d24 !important;
+        border: 2px solid #00d4ff !important;
+        border-radius: 20px !important;
+        width: 300px;
+        height: 250px;
+        transition: all 0.4s ease;
+        text-decoration: none !important;
+        color: white !important;
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    }
 
-<div class="calculos">
+    .card_calculo:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 0 30px #00d4ff;
+        background-color: #252a34 !important;
+    }
 
-    <a href="{{ url_for('operacoes') }}">
-        <div class=" card card_calculo d-flex justify-content-center align-items-center ">
-            <i class="icon_calculo bi bi-calculator"></i>
-            <h3>Operações Aritméticas</h3>
+    /* Ícones Neon */
+    .icon_calculo, .icon_geometria {
+        font-size: 3rem;
+        color: #00d4ff;
+        text-shadow: 0 0 15px #00d4ff;
+        margin-bottom: 15px;
+    }
+
+    .calculos a {
+        text-decoration: none;
+    }
+
+    /* Layout da Grade */
+    .calculos {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+</style>
+
+<div class="modal-body" style="background-color: #0b0e14; min-height: 100vh; padding: 60px 20px;">
+    <div class="container text-center">
+
+        <h1 class="neon-text mb-5" style="font-size: 2.5rem;">Escolha uma opção de cálculo</h1>
+
+        <div class="calculos">
+
+            <!-- Card Operações -->
+            <a href="{{ url_for('operacoes') }}">
+                <div class="card card_calculo d-flex flex-column justify-content-center align-items-center">
+                    <i class="icon_calculo bi bi-calculator"></i>
+                    <h3 class="mt-2">Operações Aritméticas</h3>
+                </div>
+            </a>
+
+            <!-- Card Geometria -->
+            <a href="{{ url_for('geometria') }}">
+                <div class="card card_calculo d-flex flex-column justify-content-center align-items-center">
+                    <div class="d-flex gap-2">
+                        <i class="icon_geometria bi bi-circle"></i>
+                        <i class="icon_geometria bi bi-square"></i>
+                        <i class="icon_geometria bi bi-triangle"></i>
+                    </div>
+                    <h3 class="mt-2">Geometria</h3>
+                </div>
+            </a>
+
         </div>
-    </a>
-
-    <a href="{{ url_for('geometria') }}">
-        <div class=" card card_calculo d-flex justify-content-center align-items-center ">
-            <i class="icon_geometria bi bi-circle"></i>
-            <i class="icon_geometria bi bi-square"></i>
-            <i class="icon_geometria bi bi-triangle"></i>
-            <h3>Geometria</h3>
-        </div>
-    </a>
-
+    </div>
 </div>
-
-
-
 {% endblock %}

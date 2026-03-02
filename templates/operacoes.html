@@ -1,187 +1,226 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+<style>
+    /* Configurações de Neon Reutilizáveis */
+    .neon-text { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
 
-<h1>Operações Aritméticas</h1>
-<!--  passo 2 chamando uma função get_flashed...; whith_category analisa; -->
-<!--  verifica se possui mensagens enviadas pelo app -->
-<!-- passo 3 definir with_categories=true) %} caso queira ter acesso as categorias -->
+    .card-neon {
+        background-color: #1a1d24;
+        color: white;
+        border: 2px solid #00d4ff;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.3s;
+    }
+    .card-neon:hover { transform: translateY(-5px); box-shadow: 0 0 25px #00d4ff; }
 
+    .input-neon {
+        background-color: #0b0e14 !important;
+        color: #00d4ff !important;
+        border: 1px solid #00d4ff !important;
+        text-align: center;
+    }
+    .input-neon::placeholder { color: rgba(0, 212, 255, 0.4); }
 
+    .resultado-neon {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #00d4ff;
+        text-shadow: 0 0 8px #00d4ff;
+        min-height: 30px;
+        margin: 15px 0;
+    }
 
-<div class="calculos">
+    /* Ajuste do Accordion para o tema escuro */
+    .accordion-item { background-color: #1a1d24; border: 1px solid #00d4ff; color: white; }
+    .accordion-button { background-color: #0b0e14 !important; color: #00d4ff !important; box-shadow: none !important; }
+    .accordion-button::after { filter: invert(1); } /* Deixa a setinha branca */
 
-    <div class="card_operacao">
-        <h2>Adição</h2>
-        <form class="form-somar" action="{{ url_for('somar') }}" method="post">
-            <label>
-                <input placeholder="Digite um número" name="form-n1" form-control>
-            </label>
+     /* Configurações de Neon Reutilizáveis */
+    .neon-text { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
 
-            <p class="operador">+</p>
+    /* ESTILO DA FLECHA DE VOLTAR */
+    .btn-back {
+        color: #00d4ff;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-shadow: 0 0 5px #00d4ff;
+        margin-bottom: 20px;
+    }
+    .btn-back:hover {
+        transform: translateX(-5px);
+        color: #fff;
+        text-shadow: 0 0 15px #00d4ff;
+    }
 
-            <label>
-                <input placeholder="Digite um número" name="form-n2" form-control>
-            </label>
+    .card-neon {
+        background-color: #1a1d24;
+        color: white;
+        border: 2px solid #00d4ff;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        padding: 20px;
+        transition: transform 0.3s;
+    }
+    .card-neon:hover { transform: translateY(-5px); box-shadow: 0 0 25px #00d4ff; }
 
-            <p class="resultado">
-                {% if soma is defined %}
-                {{ n1 }} + {{ n2 }} = {{ soma }}
-                {% else %}
-                {% endif %}
-            </p>
+    .input-neon {
+        background-color: #0b0e14 !important;
+        color: #00d4ff !important;
+        border: 1px solid #00d4ff !important;
+        text-align: center;
+    }
+    .input-neon::placeholder { color: rgba(0, 212, 255, 0.4); }
 
-            <button type="submit" class="btn btn-info">Somar</button>
-        </form>
-        <div class="accordion" id="accordion1">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                        Calcular
-                    </button>
-                </h2>
-                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#accordion1">
-                    <div class="accordion-body">
-                        <h4>Adição</h4>
-                        <p> Calcular a adição (ou soma) é, na essência, o ato de juntar quantidades.<br>
-                            Imagine que você está reunindo objetos em um único grupo para saber o total.</p>
+    .resultado-neon {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #00d4ff;
+        text-shadow: 0 0 8px #00d4ff;
+        min-height: 30px;
+        margin: 15px 0;
+    }
 
+    /* Ajuste do Accordion */
+    .accordion-item { background-color: #1a1d24; border: 1px solid #00d4ff; color: white; }
+    .accordion-button { background-color: #0b0e14 !important; color: #00d4ff !important; box-shadow: none !important; }
+    .accordion-button::after { filter: invert(1); }
+
+</style>
+
+<div class="modal-body" style="background-color: #0b0e14; min-height: 100vh; padding: 40px;">
+    <div class="container">
+        <!-- BOTÃO VOLTAR (FLECHA) -->
+        <a href="{{ url_for('calculos') }}" class="btn-back">
+            <i class="bi bi-arrow-left-circle"></i>
+            <span style="font-size: 1rem; font-weight: bold;">Voltar para Cálculos</span>
+        </a>
+        <h1 class="neon-text text-center mb-5">Operações Aritméticas</h1>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <!-- ADIÇÃO -->
+            <div class="col">
+                <div class="card-neon h-100">
+                    <h2 class="text-center mb-4">Adição</h2>
+                    <form action="{{ url_for('somar') }}" method="post" class="text-center">
+                        <input placeholder="Número 1" name="form-n1" class="form-control input-neon mb-2" required>
+                        <p class="neon-text h4">+</p>
+                        <input placeholder="Número 2" name="form-n2" class="form-control input-neon mb-3" required>
+
+                        <div class="resultado-neon">
+                            {% if soma is defined %}{{ n1 }} + {{ n2 }} = {{ soma }}{% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-100 text-white fw-bold shadow-sm" style="background-color: #00d4ff; border: none;">Somar</button>
+                    </form>
+
+                    <div class="accordion mt-3" id="acc1">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c1">O que é?</button>
+                            </h2>
+                            <div id="c1" class="accordion-collapse collapse" data-bs-parent="#acc1">
+                                <div class="accordion-body small">Calcular a soma é o ato de juntar quantidades em um único grupo.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-        </div>
+            <!-- SUBTRAÇÃO -->
+            <div class="col">
+                <div class="card-neon h-100">
+                    <h2 class="text-center mb-4">Subtração</h2>
+                    <form action="{{ url_for('subtrair') }}" method="post" class="text-center">
+                        <input placeholder="Número 1" name="form-n1" class="form-control input-neon mb-2" required>
+                        <p class="neon-text h4">-</p>
+                        <input placeholder="Número 2" name="form-n2" class="form-control input-neon mb-3" required>
 
+                        <div class="resultado-neon">
+                            {% if subtracao is defined %}{{ n1 }} - {{ n2 }} = {{ subtracao }}{% endif %}
+                        </div>
 
-    </div>
-    <div class="card_operacao">
-        <h2>Subtração</h2>
-        <form class="form-somar" action="{{ url_for('subtrair') }}" method="post">
-            <label>
-                <input placeholder="Digite um número" name="form-n1" form-control>
-            </label>
+                        <button type="submit" class="btn btn-info w-100 text-white fw-bold shadow-sm" style="background-color: #00d4ff; border: none;">Subtrair</button>
+                    </form>
 
-            <p class="operador">-</p>
-
-            <label>
-                <input placeholder="Digite um número" name="form-n2" form-control>
-            </label>
-
-            <p class="resultado">
-                {% if subtracao is defined %}
-                {{ n1 }} - {{ n2 }} = {{ subtracao }}
-                {% else %}
-                {% endif %}
-            </p>
-
-            <button type="submit" class="btn btn-info">Subtrair</button>
-        </form>
-        <div class="accordion" id="accordion2">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                        Calcular
-                    </button>
-                </h2>
-                <div id="collapse2" class="accordion-collapse collapse " data-bs-parent="#accordion2">
-                    <div class="accordion-body">
-                        <h4>Subtração</h4>
-                        <p> A subtração (a famosa "conta de menos") é o processo de retirar uma quantidade<br>
-                            de outra para descobrir a diferença ou o que restou</p>
-
+                    <div class="accordion mt-3" id="acc2">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2">O que é?</button>
+                            </h2>
+                            <div id="c2" class="accordion-collapse collapse" data-bs-parent="#acc2">
+                                <div class="accordion-body small">É o processo de retirar uma quantidade de outra para descobrir o resto.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-        </div>
+            <!-- MULTIPLICAÇÃO -->
+            <div class="col">
+                <div class="card-neon h-100">
+                    <h2 class="text-center mb-4">Multiplicação</h2>
+                    <form action="{{ url_for('multiplicar') }}" method="post" class="text-center">
+                        <input placeholder="Número 1" name="form-n1" class="form-control input-neon mb-2" required>
+                        <p class="neon-text h4">×</p>
+                        <input placeholder="Número 2" name="form-n2" class="form-control input-neon mb-3" required>
 
-    </div>
-    <div class="card_operacao">
-        <h2>Multiplicação</h2>
-        <form class="form-somar" action="{{ url_for('multiplicar') }}" method="post">
-            <label>
-                <input placeholder="Digite um número" name="form-n1" form-control>
-            </label>
+                        <div class="resultado-neon">
+                            {% if multiplicacao is defined %}{{ n1 }} * {{ n2 }} = {{ multiplicacao }}{% endif %}
+                        </div>
 
-            <p class="operador">*</p>
+                        <button type="submit" class="btn btn-info w-100 text-white fw-bold shadow-sm" style="background-color: #00d4ff; border: none;">Multiplicar</button>
+                    </form>
 
-            <label>
-                <input placeholder="Digite um número" name="form-n2" form-control>
-            </label>
-
-            <p class="resultado">
-                {% if multiplicacao is defined %}
-                {{ n1 }} * {{ n2 }} = {{multiplicacao}}
-                {% else %}
-                {% endif %}
-            </p>
-
-            <button type="submit" class="btn btn-info">Multiplicar</button>
-        </form>
-        <div class="accordion" id="accordion3">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                        Calcular
-                    </button>
-                </h2>
-                <div id="collapse3" class="accordion-collapse collapse " data-bs-parent="#accordion3">
-                    <div class="accordion-body">
-                        <h4>Adição</h4>
-                        <p> A multiplicação é uma forma rápida de fazer uma adição de parcelas iguais</p>
-
+                    <div class="accordion mt-3" id="acc3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3">O que é?</button>
+                            </h2>
+                            <div id="c3" class="accordion-collapse collapse" data-bs-parent="#acc3">
+                                <div class="accordion-body small">Uma forma rápida de fazer uma adição de parcelas iguais.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="card_operacao">
 
-        <h2>Divisão</h2>
-        <form class="form-somar" action="{{ url_for('dividir') }}" method="post">
-            <label>
-                <input placeholder="Digite um número" name="form-n1" form-control>
-            </label>
+            <!-- DIVISÃO -->
+            <div class="col">
+                <div class="card-neon h-100">
+                    <h2 class="text-center mb-4">Divisão</h2>
+                    <form action="{{ url_for('dividir') }}" method="post" class="text-center">
+                        <input placeholder="Número 1" name="form-n1" class="form-control input-neon mb-2" required>
+                        <p class="neon-text h4">÷</p>
+                        <input placeholder="Número 2" name="form-n2" class="form-control input-neon mb-3" required>
 
-            <p class="operador">/</p>
+                        <div class="resultado-neon">
+                            {% if divisao is defined %}{{ n1 }} / {{ n2 }} = {{ divisao }}{% endif %}
+                        </div>
 
-            <label>
-                <input placeholder="Digite um número" name="form-n2" form-control>
-            </label>
+                        <button type="submit" class="btn btn-info w-100 text-white fw-bold shadow-sm" style="background-color: #00d4ff; border: none;">Dividir</button>
+                    </form>
 
-            <p class="resultado">
-                {% if divisao is defined %}
-                {{ n1 }} / {{ n2 }} = {{divisao}}
-                {% else %}
-                {% endif %}
-            </p>
-
-            <button type="submit" class="btn btn-info">Dividir</button>
-        </form>
-        <div class="accordion" id="accordion4">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                        Calcular
-                    </button>
-                </h2>
-                <div id="collapse4" class="accordion-collapse collapse " data-bs-parent="#accordion4">
-                    <div class="accordion-body">
-                        <h4>Adição</h4>
-                        <p> A divisão é o processo de repartir uma quantidade em partes iguais.<br>
-                            É a operação inversa da multiplicação. Se na multiplicação juntamos grupos,<br>
-                            na divisão nós os separamos.</p>
-
+                    <div class="accordion mt-3" id="acc4">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4">O que é?</button>
+                            </h2>
+                            <div id="c4" class="accordion-collapse collapse" data-bs-parent="#acc4">
+                                <div class="accordion-body small">O processo de repartir uma quantidade em partes iguais.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 {% endblock %}

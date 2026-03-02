@@ -1,38 +1,63 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+<style>
+    /* Estiliza o texto que o usuário digita */
+    .input-neon {
+        color: #00d4ff !important;
+        text-shadow: 0 0 5px #00d4ff;
+    }
 
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow-sm" style="width: 350px; height: auto; border-radius: 15px;">
-        <h2 class="text-center mb-4">Login</h2>
+    /* Estiliza o texto de exemplo (placeholder) */
+    .input-neon::placeholder {
+        color: rgba(0, 212, 255, 0.7);
+        text-shadow: 0 0 8px #00d4ff;
+    }
 
-        <!-- ADICIONADO: Tag form com a rota de login -->
-        <form action="{{ url_for('login') }}" method="POST">
+    /* Calendário Neon (caso use futuramente aqui) */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(65%) sepia(97%) saturate(1872%) hue-rotate(159deg) brightness(105%) contrast(105%);
+    }
+</style>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Email:
-                <!-- ADICIONADO: class form-control e o name correto -->
-                    <input type="email" name="form-email" class="form-control" placeholder="seu@email.com" required>
-                </label>
-            </div>
+<!-- ADICIONADO: modal-body com fundo escuro ocupando a tela toda -->
+<div class="modal-body" style="background-color: #0b0e14; min-height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center vh-100">
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Senha:
-                <!-- ADICIONADO: class form-control e o name correto -->
+        <div class="card p-4 shadow-sm" style="
+            width: 350px;
+            border-radius: 15px;
+            background-color: #1a1d24;
+            color: white;
+            border: 2px solid #00d4ff;
+            box-shadow: inset 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #0077ff;
+        ">
 
-                    <input type="password" name="form-senha" class="form-control" placeholder="******" required>
+            <h2 class="text-center mb-4" style="text-shadow: 0 0 12px #00d4ff; color: #00d4ff;">Login</h2>
 
-                </label>
-            </div>
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="mb-3">
+                    <label class="form-label w-100">
+                        Email:
+                        <input type="email" name="form-email" class="form-control bg-dark border-info input-neon" placeholder="seu@email.com" required>
+                    </label>
+                </div>
 
-            <button type="submit" class="btn btn-info w-100 mt-2 text-white">Entrar</button>
+                <div class="mb-3">
+                    <label class="form-label w-100">
+                        Senha:
+                        <input type="password" name="form-senha" class="form-control bg-dark border-info input-neon" placeholder="******" required>
+                    </label>
+                </div>
 
-            <div class="text-center mt-3">
-                <small>Não tem conta? <a href="{{ url_for('cadastro_usuario') }}">Cadastre-se</a></small>
-            </div>
-        </form>
+                <button type="submit" class="btn btn-info w-100 mt-2 text-white fw-bold" style="box-shadow: 0 0 15px #00d4ff; background-color: #00d4ff; border: none;">Entrar</button>
+
+                <div class="text-center mt-3">
+                    <small>Não tem conta? <a href="{{ url_for('cadastro_usuario') }}" class="text-info" style="text-shadow: 0 0 5px #00d4ff;">Cadastre-se</a></small>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
