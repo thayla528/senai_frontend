@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+  <!-- Carrosel -->
+
 <div class="carrosel d-flex overflow-hidden">
   <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -25,18 +27,55 @@
 </div>
 
   <div class="w-100 h-100 position-absolute d-flex flex-column justify-content-evenly" >
-        <p class="title-senai text-white display-1 text-center">Capacitação profissional na indústria</p>
+        <p class="title-senai text-white display-1 text-center">Capacitação profissional nas artes</p>
         <p class="subtitle-senai text-white display-6 text-center">Confira os nossos cursos Profissionalizantes</p>
     </div>
   </div>
-  <div class="cursos ">
-    <div class="curso-text col-8">
-      <p>Descrição</p>
-    </div>
-    <div class="curso-img bg-white col-4">
-      <img src="/static/img/foto.jpg" class="w-100 h-100">
-    </div>
+
+  <!-- img1 and text2 -->
+
+  <!-- Adicionamos 'row' para habilitar as colunas e 'align-items-center' para centralizar verticalmente -->
+  <div class="cursos row align-items-center g-0">
+      <!-- 'text-center' centraliza o texto horizontalmente dentro da col-8 -->
+      <div class="text-descrition fs-2 text-center col-8 d-flex flex-column justify-content-center align-items-center p-5">
+      <!-- Título em destaque -->
+      <h2 class="display-3 fw-bold mb-4" style="color: deepskyblue;">Do Alinhavo ao Estilo – Curso Completo de Moda e Costura
+      </h2>
+
+      <!-- Descrição com a sua fonte Ephesis -->
+      <p class="text-descrition fs-2 text-center">
+        O Curso de Moda e Costura Completo une criatividade e técnica em uma formação integrada, capacitando você a transformar conceitos em coleções reais. A jornada abrange desde o desenvolvimento de estilo e desenho de moda até a modelagem, o corte estratégico e o domínio das máquinas de costura com acabamentos profissionais. Além da parte prática, o curso oferece uma visão estratégica sobre gestão e precificação, preparando você tanto para a confecção sob medida quanto para o lançamento de uma marca própria com identidade exclusiva.
+
+
+      </p>
+      </div>
+
+      <div class="curso-img bg-white col-4">
+        <!-- 'img-fluid' garante que a imagem não 'estoure' o tamanho da coluna -->
+        <img src="/static/img/foto.jpg" class="img-fluid w-100">
+      </div>
   </div>
+
+  <div class="cursos row align-items-center g-0">
+      <!-- 'text-center' centraliza o texto horizontalmente dentro da col-8 -->
+      <div class="curso-img bg-white col-4">
+        <!-- 'img-fluid' garante que a imagem não 'estoure' o tamanho da coluna -->
+        <img src="/static/img/curso_desenho.jpg" class="img-fluid w-100">
+      </div>
+
+      <div class="text-descrition fs-2 text-center col-8 d-flex flex-column justify-content-center align-items-center p-5">
+      <!-- Título em destaque -->
+      <h2 class="display-3 fw-bold mb-4" style="color: deepskyblue;">Desenho Artístico</h2>
+
+      <!-- Descrição com a sua fonte Ephesis -->
+      <p class="text-descrition fs-2 text-center">
+        O Curso de Desenho Realista foca no desenvolvimento do olhar analítico e no domínio da paciência para reproduzir imagens com precisão fotográfica. Você aprenderá a controlar o grafite para criar degradês suaves, texturas de pele, brilho nos olhos e profundidade através de luz e sombra. A formação guia o aluno desde os primeiros traços e proporções do rosto até o uso de ferramentas profissionais de sombreamento, permitindo que qualquer pessoa alcance um nível de detalhamento impressionante e dê vida a retratos que parecem saltar do papel.
+      </p>
+      </div>
+
+
+  </div>
+
 
 
 

@@ -103,7 +103,6 @@ def cadastrar_funcionario():
 
     return redirect(url_for('funcionarios'))
 
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -120,9 +119,6 @@ def load_user(user_id):
     # Remova o .first()
     user = select(Usuario).where(Usuario.id == int(user_id))
     return db_session.execute(user).scalar_one_or_none()
-
-
-
 @app.route('/')
 def home():
     return render_template("home.html")
@@ -139,7 +135,6 @@ def operacoes():
 def geometria():
     return render_template("geometria.html")
 
-
 @app.route('/funcionarios')
 @login_required
 def funcionarios():
@@ -150,7 +145,6 @@ def funcionarios():
 
     # Envia a lista para o HTML através da variável 'funcionarios'
     return render_template("funcionarios.html", funcionarios=lista)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -293,8 +287,6 @@ def area():
 
     return render_template("geometria.html")
 
-
-
 @app.route('/perimetro_triangulo', methods=['GET','POST'])
 def perimetro_triangulo():
     if request.method == 'POST':
@@ -308,8 +300,6 @@ def perimetro_triangulo():
             flash("Preencha o campo", 'alert-danger')
 
     return render_template("geometria.html")
-
-
 
 # CÍRCULO
 @app.route('/area_circulo', methods=['GET', 'POST'])
@@ -353,6 +343,7 @@ def area_quadrado():
             flash("Preencha o campo", 'alert-danger')
 
     return render_template("geometria.html")
+
 @app.route('/perimetro_quadrado', methods=['GET', 'POST'])
 def perimetro_quadrado():
     if request.method == 'POST':
@@ -367,7 +358,6 @@ def perimetro_quadrado():
             flash("Preencha o campo", 'alert-danger')
 
     return render_template("geometria.html")
-
 
 
 # HEXÁGONO
@@ -399,7 +389,6 @@ def perimetro_hexagono():
             flash("Preencha o campo", 'alert-danger')
 
     return render_template("geometria.html")
-
 
 if __name__ == '__main__':
     app.run(debug=True)
