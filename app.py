@@ -38,6 +38,9 @@ def excluir_funcionario(id):
 
     return redirect(url_for('funcionarios'))
 
+@app.route('/animais')
+def animais():
+    return render_template('animais.html')
 
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required

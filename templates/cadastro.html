@@ -21,10 +21,17 @@
         box-shadow: 0 0 10px #00d4ff;
         color: #00d4ff;
     }
+
+    /* ESTILO DE ERRO NEON VERMELHO */
+    .is-invalid {
+        border: 2px solid #ff4d4d !important;
+        box-shadow: 0 0 10px #ff4d4d !important;
+        color: #ff4d4d !important;
+    }
 </style>
 
 <div class="modal-body" style="background-color: #0b0e14; min-height: 100vh;">
-    <form action="{{ url_for('cadastro_usuario') }}" method="post">
+    <form id="form-cadastro" action="{{ url_for('cadastro_usuario') }}" method="post">
         <div class="d-flex justify-content-center align-items-center vh-100">
 
             <!-- Card com LED e Profundidade -->
@@ -41,27 +48,31 @@
                 <div class="mb-3">
                     <label class="form-label w-100">
                         Nome
-                        <input type="text" name="nome" class="form-control bg-dark border-info input-neon" required placeholder="Seu nome completo">
+                        <!-- Adicionado id="input-nome" -->
+                        <input type="text" name="nome" id="input-nome" class="form-control bg-dark border-info input-neon" placeholder="Seu nome completo">
                     </label>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label w-100">
                         Email
-                        <input type="email" name="email" class="form-control bg-dark border-info input-neon" required placeholder="exemplo@email.com">
+                        <!-- Adicionado id="input-email" -->
+                        <input type="email" name="email" id="input-email" class="form-control bg-dark border-info input-neon" placeholder="exemplo@email.com">
                     </label>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label w-100">
                         Senha
-                        <input type="password" name="senha" class="form-control bg-dark border-info input-neon" required placeholder="Crie uma senha">
+                        <!-- Adicionado id="input-senha" -->
+                        <input type="password" name="senha" id="input-senha" class="form-control bg-dark border-info input-neon" placeholder="Crie uma senha">
                     </label>
                 </div>
 
                 <button type="submit" class="btn btn-info w-100 mt-2 text-white fw-bold" style="box-shadow: 0 0 15px #00d4ff; background-color: #00d4ff; border: none;">
                     Cadastrar
                 </button>
+                <a class="btn btn-danger w-100 mt-2 text-white fw-bold" style="box-shadow: 0 0 15px #00d4ff; background-color: #00d4ff; border: none;" onclick="limpainputsLogin()">Cancelar</a>
 
                <div class="text-center mt-3">
                     <small>Já tem uma conta? <a href="{{ url_for('login') }}" class="text-info" style="text-shadow: 0 0 5px #00d4ff;">Faça login</a></small>
@@ -70,4 +81,5 @@
         </div>
     </form>
 </div>
+<script src="/static/js/verificacoes.js"></script>
 {% endblock %}

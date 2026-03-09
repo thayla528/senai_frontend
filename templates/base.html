@@ -97,6 +97,7 @@
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('funcionarios') }}">Funcionários</a></li>
         <li><a href="{{ url_for('calculos') }}">Cálculos</a></li>
+        <li><a href="{{ url_for('animais') }}">Animais</a></li>
         <!-- se tiver autenticado as paginas são visiveis caso crontrário o login é apresentado-->
         {% if current_user.is_authenticated %}
             <li>
@@ -135,7 +136,14 @@
     {% endblock %}
 </div>
 <!-- link do java script no fim do body-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net"></script>
+<script src="/static/js/verificacoes.js"></script>
+<script src="/static/js/apis.js"></script>
+
+<!-- Container de Mensagens Neon no Rodapé -->
+
+
+</script>
 <!-- Container de Mensagens Neon no Rodapé -->
 <!-- mensagens-->
 <div class="fixed-bottom p-3 d-flex flex-column align-items-center" style="z-index: 9999; pointer-events: none;">
@@ -173,5 +181,6 @@
         });
     }, 3000);
 </script>
+
 </body>
 </html>
