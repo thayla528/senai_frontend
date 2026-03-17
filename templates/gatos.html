@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<!-- List Item 1: Abyssinian -->
+
+    {% if gatos%}
+        {% for gato in gatos %}
+        <div class="card-neon w-100 mb-4 mt-5" data-purpose="breed-card">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <div class="breed-img-container">
+                        <img alt="Abyssinian Cat"
+                             src="{{gato.image}}">
+                        <span class="ancient-badge">{{gato.origin}}</span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="p-4 h-100 d-flex flex-column">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start mb-3">
+                            <div>
+                                <h2 class="h2 fw-bold neon-text mb-1">{{gato.name}}</h2>
+                                <p class="small text-secondary d-flex align-items-center gap-1">
+                                    <svg class="bi" fill="none" height="16" stroke="currentColor" viewbox="0 0 24 24"
+                                         width="16" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                              stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round"
+                                              stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                    {{gato.origin}}
+                                </p>
+                            </div>
+                            <button class="btn btn-neon mt-3 mt-md-0">Learn More</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <p class="text-light-emphasis small lh-lg mb-3">
+                                    {{gato.description}}
+                                </p>
+                                <div class="d-flex flex-wrap">
+                                    {% for temperamento in gato.temperament %}
+                                    <span class="badge-neon">{{temperamento}}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h3>Nenhum gato</h3>
+    {% endif %}
+
+
+<!-- BEGIN: BreedsList -->
+
+
+{% endblock %}

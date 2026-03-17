@@ -98,6 +98,9 @@
         <li><a href="{{ url_for('funcionarios') }}">Funcionários</a></li>
         <li><a href="{{ url_for('calculos') }}">Cálculos</a></li>
         <li><a href="{{ url_for('animais') }}">Animais</a></li>
+        <li><a href="{{ url_for('listar_gatos') }}">Gatos</a></li>
+
+
         <!-- se tiver autenticado as paginas são visiveis caso crontrário o login é apresentado-->
         {% if current_user.is_authenticated %}
             <li>

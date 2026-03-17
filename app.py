@@ -5,6 +5,7 @@ from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect, request
 from sqlalchemy.exc import SQLAlchemyError
 
+import routes
 from database import db_session, Funcionario, Usuario
 
 from sqlalchemy import select, and_, func
@@ -41,6 +42,17 @@ def excluir_funcionario(id):
 @app.route('/animais')
 def animais():
     return render_template('animais.html')
+
+@app.route('/gatos')
+def listar_gatos():
+    gatos = routes.get_gatos()
+
+    for gato in gatos:
+        gato["temperament"] = gato["temperament"].split(',')
+        gato["image"] = routes.get_image()["url"]
+
+    return render_template('gatos.html', gatos=gatos)
+
 
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
