@@ -1,5 +1,9 @@
 import math
 
+from functools import wraps
+from flask import abort
+
+
 from datetime import datetime
 
 from flask import Flask, render_template, url_for, flash, redirect, request
@@ -19,10 +23,22 @@ login_manager.init_app(app)
 # em qual lugar vou autenticar
 login_manager.login_view = 'login'
 
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+    # Verifica se está logado e se o atributo 'papel' é 'admin'
+    # Importante: seu model 'Usuario' deve ter a coluna 'papel'
+        if not current_user.is_authenticated or current_user.papel != 'admin':
+            flash("acesso negado: você não tem permissão de administrador.","danger")
+            return redirect(url_for('home'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 #se na tiver logado joga para a tela de login
 
 @app.route('/excluir/<int:id>')
 @login_required
+@admin_required
 def excluir_funcionario(id):
     try:
         # Busca usando a estrutura correta do seu db_session
@@ -56,6 +72,7 @@ def listar_gatos():
 
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def editar_funcionario(id):
     funcionario = db_session.get(Funcionario, id)
 
@@ -91,6 +108,7 @@ def editar_funcionario(id):
 # --- 3. CADASTRO DE FUNCIONÁRIO (Com Hash) ---
 @app.route('/cadastrar_funcionario', methods=['POST'])
 @login_required
+@admin_required
 def cadastrar_funcionario():
     nome = request.form.get('nome')
     data_nasc = request.form.get('data_nascimento')
@@ -152,6 +170,7 @@ def geometria():
 
 @app.route('/funcionarios')
 @login_required
+@admin_required
 def funcionarios():
     # Busca todos os registros da tabela 'funcionarios'
 
@@ -160,6 +179,8 @@ def funcionarios():
 
     # Envia a lista para o HTML através da variável 'funcionarios'
     return render_template("funcionarios.html", funcionarios=lista)
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -208,7 +229,9 @@ def cadastro_usuario():
             flash(f'Email {email} já cadastrado! ', 'danger')
             return render_template('cadastro.html')
         try:
-            novo_usuario = Usuario(nome=nome, email=email)
+            # Mude temporariamente para conseguir logar como admin
+            novo_usuario = Usuario(nome=nome, email=email, papel='admin')
+
             novo_usuario.set_password(senha)
             db_session.add(novo_usuario)
             db_session.commit()
